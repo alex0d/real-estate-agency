@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  app:
+    container_name: rea-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      POSTGRESQL_USERNAME: ${POSTGRESQL_USERNAME}
+      POSTGRESQL_PASSWORD: ${POSTGRESQL_PASSWORD}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresql
+    restart: on-failure
+    networks:
+      - app-network
+
+  postgresql:
+    container_name: postgresql
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRESQL_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASSWORD}
+      POSTGRES_DB: real_estate_agency
+    ports:
+      - "5432:5432"
+    restart: on-failure
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
