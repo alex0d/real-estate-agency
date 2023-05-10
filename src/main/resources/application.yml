@@ -1,0 +1,17 @@
+spring:
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/real_estate_agency
+    username: ${POSTGRESQL_USERNAME}
+    password: ${POSTGRESQL_PASSWORD}
+  sql:
+    init:
+      mode: always
